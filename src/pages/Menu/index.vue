@@ -48,7 +48,7 @@
 					</tbody>
 				</table>
 				<p>
-					<span>总价：{{}}RMB</span>
+					<span>总价：{{sum}}RMB</span>
 				</p>
 				<button type="button" class="btn btn-success btn-block">提交</button>
 			</div>
@@ -117,6 +117,13 @@ export default {
 		// 	console.log(this.bol);
 		// 	return this.bol;
 		// }
+		sum(){
+			var total = 0;
+			for (var key in this.caretPizzas) {
+				total += this.caretPizzas[key].price*this.caretPizzas[key].num
+			}
+			return total;
+		}
 	},
 	methods: {
 		getNum(name,price){

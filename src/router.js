@@ -47,6 +47,10 @@ export default new VueRouter({
 			path: '/about',
 			name:'About',
 			component: About
+		},
+		{
+			path: '*',
+			redirect:'/',
 		}
 	]
 })
