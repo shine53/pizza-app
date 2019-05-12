@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="container">
   	<div class="row">
-  		<div class="col-xs-12 col-sm-6">
+  		<div class="col-xs-12 col-sm-7">
   			<table class="table">
   				<thead>
   					<tr>
@@ -12,21 +12,46 @@
   				</thead>
 				<tbody v-for='pizza in getPizza' :key='pizza.name'>
 					<tr>
-						<td><h6>{pizza}</h6></td>
+						<td><h6>{{pizza.name}}</h6></td>
 					</tr>
 					<tr v-for='item in pizza.options' :key='item.size'>
-						<td>{item.size}寸</td>
-						<td>{item.price}RMB</td>
+						<td>{{item.size}}寸</td>
+						<td>{{item.price}}RMB</td>
 						<td>
-							<input type="number">
-							<a class="add" href="#">+</a>
+							<a class="add" href="#" @click='getNum(pizza.name,item.price)'>+</a>
 						</td>
 					</tr>
 				</tbody>
   			</table>
   		</div>
-  		<div class="col-xs-12 col-sm-6">
-
+  		<div class="col-xs-12 col-sm-5">
+			<p v-if='caretPizzas.length === 0'>您还没有添加任何商品</p>
+			<div class="caret" v-else>
+				<table class="table">
+					<thead>
+						<tr>
+							<td>数量</td>
+							<td>品种</td>
+							<td>价格</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for='(caretPizza,index) in caretPizzas'>
+							<td>
+								<button type="button" class="btn btn-sm bg-light" @click='reduceNum(caretPizza,index)'>-</button>
+								<span>{{caretPizza.num}}</span>
+								<button type="button" class="btn btn-sm bg-light" @click='addNum(caretPizza)'>+</button>
+							</td>
+							<td>{{caretPizza.name}}</td>
+							<td>{{caretPizza.price*caretPizza.num}}</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>
+					<span>总价：{{}}RMB</span>
+				</p>
+				<button type="button" class="btn btn-success btn-block">提交</button>
+			</div>
   		</div>
   	</div>
   </div>
@@ -37,6 +62,9 @@ export default {
 	name: 'appMenu',
 	data() {
 		return {
+			num:'',
+			bol:true,
+			caretPizzas:[],
 			getPizza: {
 				1:{
 					'name':'榴莲pizza',
@@ -79,8 +107,43 @@ export default {
 			}
 		}
 	},
+	computed: {
+		// hasCaret() {
+		// 	if(this.caretPizzas.length !== 0) {
+		// 		this.bol = false;
+		// 	}else{
+		// 		this.bol = true;
+		// 	}
+		// 	console.log(this.bol);
+		// 	return this.bol;
+		// }
+	},
 	methods: {
+		getNum(name,price){
+			var clickNum = 1;
+			var flag = false;
 
+			this.caretPizzas.filter(function(item){
+				if(item.name===name&&item.price===price) {
+					flag = true;
+					item.num ++;
+				}
+			})
+			if(!flag) {
+				this.caretPizzas.push({'name':name, 'price':price,'num':clickNum})
+			}
+		},
+		reduceNum(item,index){
+			item.num--;
+			console.log(item.num)
+			if(item.num<=0) {
+				this.caretPizzas.splice(index,1)
+			}
+			// console.log(this.caretPizzas);
+		},
+		addNum(item) {
+			item.num++;
+		}
 	}
 }
 </script>

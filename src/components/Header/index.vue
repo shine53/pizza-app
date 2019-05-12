@@ -10,21 +10,21 @@
 	   <a class="navbar-brand" href="#">Pizza点餐系统</a>
 	   <ul class="navbar-nav">
 	   		<li class="nav-item">
-	   			<a class="nav-link" href="#">主页</a>
+	   			<router-link class="nav-link" :to="{ name: 'Home'}">主页</router-link>
 	   		</li>
 	   		<li class="nav-item">
-	   			<a class="nav-link" href="#">菜单</a>
+	   			<router-link class="nav-link" :to="{ name: 'Menu'}">菜单</router-link>
 	   		</li>
 	   		<li class="nav-item">
-	   			<a class="nav-link" href="#">管理</a>
+				<router-link class="nav-link" :to="{ name: 'Manager'}">管理</router-link>
 	   		</li>
 	   		<li class="nav-item">
-	   			<a class="nav-link" href="#">关于我们</a>
+				<router-link class="nav-link" :to="{ name: 'About'}">关于我们</router-link>
 	   		</li>
 	   </ul>
 	   <ul class="navbar-nav ml-auto">
 	   		<li class="nav-item">
-				<router-link class="nav-link" :to="{ name: 'Register'}">登陆</router-link>
+				<router-link class="nav-link" :to="{ name: 'Login'}">登陆</router-link>
 	   		</li>
 	   		<li class="nav-item">
 	   			<router-link class="nav-link" :to="{ name: 'Register'}">注册</router-link>
